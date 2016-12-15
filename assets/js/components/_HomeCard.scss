@@ -1,0 +1,61 @@
+@import './../../styles/imports/colors';
+@import './../../styles/imports/fonts';
+@import './../../styles/imports/spacing';
+@import './../../styles/imports/misc';
+
+@mixin cardWidth() {
+    width:30%;
+    width:calc(33.33333% - 1.33rem);
+    min-width:12rem;
+    @media(max-width:800px) {
+        width:48%;
+        width:calc(50% - 1rem);
+        min-width:10rem;
+    }
+    @media(max-width:400px) {
+        width:100%;
+    }
+}
+
+.home-cards {
+    display:flex;
+    flex-flow:row;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    &:after {
+        /* THIS PSEUDO ELEMENT IS A FLEXBOX HACK FOR SPACE BETWEEN WHEN ONLY TWO ITEMS ARE ON LAST ROW --- */
+        @include cardWidth();
+        content:'';
+        display:inline-block;
+        height:1px;
+        visibility:hidden;
+    }
+}
+.home-card {
+    background:white;
+    display:inline-block;
+    border-radius:$cardBorderRadius;
+    background: white;
+    box-shadow: $cardBoxShadow;
+    color: #2b3f49;
+    position: relative;
+    z-index: 2;
+    transition:box-shadow 300ms ease;
+    margin-bottom:2rem;
+    @include cardWidth();
+    img {
+        max-width:100%;
+    }
+    h4 {
+        line-height:1.25em;
+    }
+    .pad-wrapper {
+        padding:$cardPadding;
+        padding-top:1rem;
+        padding-bottom:2rem;
+    }
+    span.home-meta {
+        display:block;
+        padding-top:.5rem;
+    }
+}

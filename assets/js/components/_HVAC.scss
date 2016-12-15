@@ -1,0 +1,29 @@
+@import './../../styles/imports/fonts';
+
+.hvac-input {
+    h3.short {
+        font-family:$titleFontFamily;
+        font-size:2rem;
+        font-weight:500;
+        display:block;
+        margin:0;
+        line-height:1.75em;
+        + p {
+            margin:0 0 1rem 0;
+            font-style:italic;
+        }
+    }
+    .checkbox-inputs {
+        display:flex;
+        flex-wrap:wrap;
+        width:50%;
+        padding-bottom:2rem;
+        h4 {
+            width:100%;
+        }
+        .checkbox-wrapper {
+            width:48.5%;
+            width:calc(50% - 1rem);
+        }
+    }
+}

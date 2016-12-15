@@ -1,0 +1,254 @@
+@import './../../../styles/imports/colors';
+@import './../../../styles/imports/fonts';
+@import './../../../styles/imports/forms';
+@import './../../../styles/imports/misc';
+@import './../../../styles/imports/spacing';
+
+.customer-sidebar {
+    width:400px;
+    min-width:400px;
+    margin-left:0;
+    padding:$sectionPadding;
+    background:$contrastBackground;
+    color:white;
+    text-transform:uppercase;
+    transition:all 650ms ease;
+    h4 {
+        margin:0;
+    }
+    p {
+        margin:.5rem 0;
+    }
+    svg.logo {
+        height:4rem;
+        width:4rem;
+        display:block;
+        margin:0 auto 2rem;
+    }
+    @media(max-width:1250px){
+        margin-left:-400px;
+    }
+}
+
+.customer-menu {
+    background:white;
+    position:relative;
+    z-index:10;
+    box-shadow: $cardBoxShadow;
+    .customer-menu-inner-wrapper {
+        display:flex;
+        flex-wrap:wrap;
+        margin:0 auto;
+        max-width: 68rem;
+        padding:0 3rem;
+        align-items:flex-end;
+        @media(max-width:800px){
+            justify-content:space-around;
+        }
+    }
+    svg.logo-wide {
+        height:4rem;
+        padding:.5rem;
+        color:$brandColor;
+        display:inline-block;
+        @media(max-width:800px){
+            display:block;
+            width:100%;
+        }
+        @media(min-width:1250px) {
+            display:none;
+        }
+    }
+    ul { margin:0; padding:0; list-style:none; }
+    li {
+        display:inline-block;
+        padding:.5rem .75rem;
+        margin:0 1.5rem;
+        border-bottom:2px solid transparent;
+        transition:border-color 300ms ease;
+        &:hover {
+            border-color:$borderColor;
+        }
+        a {
+            color:inherit;
+            text-decoration:none;
+        }
+        &.active {
+            border-color:$brandColor;
+        }
+    }
+}
+
+#customer-map {
+    height:20rem;
+    background:#eee;
+}
+
+@mixin cardWidth() {
+    width:30%;
+    width:calc(33.33333% - 1.33rem);
+    min-width:12rem;
+    @media(max-width:800px) {
+        width:48%;
+        width:calc(50% - 1rem);
+        min-width:10rem;
+    }
+    @media(max-width:400px) {
+        width:100%;
+    }
+}
+
+.customer-projects, .customer-input-wrapper {
+    padding:$sectionPadding;
+    max-width: 68rem;
+    margin: 0 auto;
+    > div {
+        flex-flow:row;
+        flex-wrap:wrap;
+        display:flex;
+        width:100%;
+        justify-content:space-between;
+        &:after {
+            /* THIS PSEUDO ELEMENT IS A FLEXBOX HACK FOR SPACE BETWEEN WHEN ONLY TWO ITEMS ARE ON LAST ROW --- */
+            @include cardWidth();
+            content:'';
+            display:inline-block;
+            height:1px;
+            visibility:hidden;
+        }
+    }
+    &:after {
+        /* THIS PSEUDO ELEMENT IS A FLEXBOX HACK FOR SPACE BETWEEN WHEN ONLY TWO ITEMS ARE ON LAST ROW --- */
+        @include cardWidth();
+        content:'';
+        display:inline-block;
+        height:1px;
+        visibility:hidden;
+    }
+}
+
+.customer-card, .customer-input-card {
+    @include cardWidth();
+    display:inline-block;
+    padding:$cardPadding;
+    border-radius:$cardBorderRadius;
+    background: white;
+    box-shadow: $cardBoxShadow;
+    color: #2b3f49;
+    margin-bottom: 2.25rem;
+    position: relative;
+    z-index: 2;
+    transition:box-shadow 300ms ease;
+    &:hover {
+        box-shadow:$cardHoverBoxShadow;
+    }
+}
+.customer-card, .customer-input-card, .home-card {
+    > a {
+        color: #2b3f49;
+    }
+    button {
+        margin-top:1.5rem;
+    }
+    h4 {
+        font-family:$titleFontFamily;
+        font-size:1.35rem;
+        font-weight:600;
+        -webkit-font-smoothing:antialiased;
+        margin:0;
+    }
+    .phone, .email {
+        display:block;
+        color:$linkColor;
+    }
+    &:hover {
+        box-shadow:$cardHoverBoxShadow;
+    }
+    &.add {
+        padding:2rem;
+        position:relative;
+        min-height:14rem;
+        .card-inner-wrapper {
+            border:1px dashed lighten($placeholderColor, 20%);
+            border-radius:$cardBorderRadius;
+            display:flex;
+            flex-flow:column;
+            justify-content:center;
+            position:absolute;
+            top:3rem; bottom:3rem; right:2rem; left:2rem;
+        }
+        h4 {
+            font-size:4.5rem;
+            text-align:center;
+            line-height:1em;
+            font-weight:100;
+            -webkit-font-smoothing:antialiased;
+            color:$placeholderColor;
+        }
+        p {
+            text-align:center;
+            margin:0;
+            font-size:1.5rem;
+            padding-bottom:2rem;
+            color:$linkColor;
+        }
+    }
+}
+.card-interests {
+    display:block;
+    svg[class*="-icon"] {
+        height:1.5rem; width:1.5rem;
+        margin-right:.25rem;
+    }
+}
+
+.customer-input-wrapper {
+    .flex-wrapper {
+        flex-wrap: wrap;
+    }
+    > .flex-wrapper.full {
+        margin-bottom:2rem;
+    }
+    .input-with-labels {
+        width:calc(50% - 1rem);
+        &.full {
+            width:100%;
+        }
+    }
+    h3 {
+        font-family:$headerFontFamily;
+        font-size:2rem;
+    }
+}
+.customer-input-card {
+    > label {
+        text-align:center;
+        font-family:$headerFontFamily;
+        font-size:2rem;
+        display:block;
+    }
+}
+svg[class*="-icon"] {
+    width:2rem;
+    height:2rem;
+}
+
+.checkbox-inputs h4 {
+    display:flex;
+    align-items:center;
+    margin:0;
+    font-family:$titleFontFamily;
+    font-weight:400;
+    font-size:1.5em;
+    > svg {
+        margin-right:.5em;
+        color:$bodyColor;
+    }
+}
+.customer-interests {
+    // h4 {
+    //     padding-bottom:1rem;
+    //     margin-bottom:.5rem;
+    //     border-bottom:1px dotted lighten($labelColor, 20%);
+    // }
+}
