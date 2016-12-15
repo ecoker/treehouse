@@ -26,10 +26,10 @@ class Customer extends Component {
 
   componentDidMount(){
       io.socket.get('/customers?sort=updatedAt desc', this.setCustomers)
-      io.socket.on('customer', this.handleCustomerEvents);
+      io.socket.on('customer', this.handleCustomerEvents)
 
       io.socket.get('/homes?sort=updatedAt desc', this.setHomes)
-      io.socket.on('home', this.handleHomeEvents);
+      io.socket.on('home', this.handleHomeEvents)
   }
 
   setCustomers(customers) {

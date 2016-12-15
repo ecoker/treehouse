@@ -74,14 +74,13 @@ class EditHomeForm extends Component {
     console.log('to post', formDataToPost )
     var _this = this
     if (this.props.home.id) {
-        console.log('POST POST POST', formDataToPost)
         $.ajax({
             url: ev.target.action,
             type: 'PUT',
             data: formDataToPost,
             success: function(response) {
                 _this.props.dispatch( CustomerActions.updateCustomerHome(response) )
-                // browserHistory.push(`/customers/${response.customer.id}/edit`)
+                browserHistory.push(`/customers/${response.customer.id}/edit`)
             }
         });
     } else {
