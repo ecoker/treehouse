@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!--STYLES-->
+    <%if (settings.env === 'production') { %>
     <link rel="stylesheet" href="/styles/app/styles.css">
+    <% } %>
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/cdn.treehouse.co/fonts/485709/361BCEF90992E9443.css" />
     <!--STYLES END-->
   </head>
