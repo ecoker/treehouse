@@ -71,7 +71,6 @@ class EditHomeForm extends Component {
     if (!formDataToPost['performance']) formDataToPost['performance'] = []
     if (!formDataToPost['design']) formDataToPost['design'] = []
     if (!formDataToPost['outdoor']) formDataToPost['outdoor'] = []
-    console.log('to post', formDataToPost )
     var _this = this
     if (this.props.home.id) {
         $.ajax({
