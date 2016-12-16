@@ -44,21 +44,30 @@ class Address extends Component {
     });
   }
 
+  getGeocodeProperty(addressParts, property, format="short_name") {
+    var addressPart = ''
+    addressParts.forEach((address) => {
+        if (address.types.indexOf(property) > -1) addressPart = address[format]
+    })
+    return addressPart
+  }
+
   getAddressByGeolocation(ev){
     ev.preventDefault()
     var latlng = {
         lat: parseFloat(this.state.lat),
         lng: parseFloat(this.state.lng)
     }
+    var _this = this
     var geocoder = new google.maps.Geocoder
     geocoder.geocode({'location': latlng}, function(results, status){
         if (status !== 'OK') return false
         if (results[1]) {
             var addressParts = results[0].address_components
-            document.getElementsByName('addressLine1')[0].value = `${addressParts[0].long_name} ${addressParts[1].long_name}`
-            document.getElementsByName('city')[0].value = addressParts[3].long_name
-            document.getElementsByName('state')[0].value = addressParts[4].short_name
-            document.getElementsByName('zipcode')[0].value = addressParts[6].short_name
+            document.getElementsByName('addressLine1')[0].value = `${_this.getGeocodeProperty(addressParts, 'street_number', 'long_name')} ${_this.getGeocodeProperty(addressParts, 'route', 'long_name')}`
+            document.getElementsByName('city')[0].value = _this.getGeocodeProperty(addressParts, 'locality', 'long_name')
+            document.getElementsByName('state')[0].value = _this.getGeocodeProperty(addressParts, 'administrative_area_level_1')
+            document.getElementsByName('zipcode')[0].value = _this.getGeocodeProperty(addressParts, 'postal_code')
         } else {
             alert('Sorry, we couldn\'t figure out the address.')
         }
