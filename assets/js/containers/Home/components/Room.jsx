@@ -41,5 +41,5 @@ class Room extends Component {
   }
 }
 
-require(__dirname + '/_room.scss')
+// require(__dirname + '/_room.scss')
 export default Room
