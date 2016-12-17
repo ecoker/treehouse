@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { browserHistory, Router, Route, IndexRoute, IndexRedirect } from 'react-router'
+var path = require('path');
 
 /* CONTAINERS --- */
 import Customer from 'containers/Customer'
@@ -24,7 +25,7 @@ export const store = createStore(
     })
 )
 
-require('./../styles/base.scss')
+require(path.resolve(__dirname, '../styles/base.scss')
 
 render((
     <Provider store={ store }>
