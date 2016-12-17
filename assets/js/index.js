@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { browserHistory, Router, Route, IndexRoute, IndexRedirect } from 'react-router'
-ż
+
 /* CONTAINERS --- */
 import Customer from 'containers/Customer'
 import CustomerAll from 'containers/Customer/All'
