@@ -24,7 +24,7 @@ export const store = createStore(
     })
 )
 
-require('styles/base.scss')
+require('./../styles/base.scss')
 
 render((
     <Provider store={ store }>

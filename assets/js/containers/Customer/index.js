@@ -70,6 +70,6 @@ class Customer extends Component {
   }
 }
 
-// require('./styles.scss')
+require('./styles.scss')
 
 export default Customer

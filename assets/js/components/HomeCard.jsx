@@ -35,6 +35,7 @@ class HomeCard extends Component {
     );
   }
 }
-// require(__dirname + '/_HomeCard.scss')
+
+require('./_HomeCard.scss')
 
 export default HomeCard

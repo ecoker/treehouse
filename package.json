@@ -20,7 +20,7 @@
     "ejs": "2.3.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "include-all": "^1.0.0",
-    "node-sass": "^3.13.0",
+    "node-sass": "^3.13.1",
     "rc": "1.0.1",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.1",
