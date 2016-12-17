@@ -35,7 +35,7 @@ class HVAC extends Component {
   }
 }
 
-require('./_HVAC.scss')
+require(__dirname + '/_HVAC.scss')
 
 HVAC.defaultProps = {
     customer: {}
