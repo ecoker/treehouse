@@ -26,6 +26,9 @@ if (process.env.NODE_ENV == 'production') {
     }))
 }
 
+var entries = [path.resolve(__dirname, '../assets/js/index.js')]
+if (process.env.NODE_ENV !== 'production') entries.push( 'webpack-hot-middleware/client' )
+
 // compile js assets into a single bundle file
 module.exports.webpack = {
   options: {
@@ -33,10 +36,7 @@ module.exports.webpack = {
 
     devtool: 'eval',
 
-    entry: [
-      path.resolve(__dirname, '../assets/js/index.js'),
-      'webpack-hot-middleware/client'
-    ],
+    entry: entries,
 
     output: {
       path: path.resolve(__dirname, '../.tmp/public/js/app'),
