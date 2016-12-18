@@ -1,0 +1,6 @@
+#!/bin/sh
+git --work-tree=/var/www/treehouse --git-dir=/var/repo/treehouse checkout -f
+
+#stop all instances of app with pm2
+pm2 stop treehouse
+pm2 start /var/www/treehouse/app.js --name treehouse -- --prod
