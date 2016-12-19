@@ -5,6 +5,9 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { browserHistory, Router, Route, IndexRoute, IndexRedirect } from 'react-router'
 
+/* SHARED SERVICES --- */
+require('services/$.serializeObject.js')
+
 /* CONTAINERS --- */
 import Customer from 'containers/Customer'
 import CustomerAll from 'containers/Customer/All'

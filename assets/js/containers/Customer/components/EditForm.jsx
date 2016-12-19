@@ -8,6 +8,8 @@ import Interests from './Interests'
 import Address from 'components/Address'
 import IncrementInput from 'components/IncrementInput' 
 
+import * as Defaults from 'services/Defaults'
+
 import * as CustomerActions from 'actions/Customer'
 
 @connect(state => ({ }))
@@ -20,33 +22,26 @@ class EditForm extends Component {
 
   handleSubmit(ev){
     ev.preventDefault()
-    var formData = new FormData(ev.target)
-    /*
-    // TBD: CREATE A SERVICE FOR THIS. IT'S TOO MANUAL
-    */
-    if (!formData.get('performance')) formData.set('performance', [])
-    if (!formData.get('design')) formData.set('design', [])
-    if (!formData.get('outdoor')) formData.set('outdoor', [])
-    var req = new XMLHttpRequest()
+    var formData = Defaults.customer( $(ev.target).serializeObject() )
     var _this = this
-    req.onreadystatechange = function() {
-        if (req.readyState == XMLHttpRequest.DONE) {
-            var response = JSON.parse( req.responseText )
-            if (!response.homes) response.homes = []
-            /*
-            // TOGGLE BETWEEN UPDATE AND ADD IN REDUX
-            */
-            if (_this.props.customer.firstName) _this.props.dispatch( CustomerActions.updateCustomer(response) )
-            else _this.props.dispatch( CustomerActions.addCustomer(response) )
-            browserHistory.push(`/customers/${JSON.parse(req.responseText).id}/edit`);
-        }
+    if (this.props.customer.firstName) {
+        $.ajax({
+            url: ev.target.action,
+            type: 'PUT',
+            data: formData,
+            success: function(response) {
+                if (!response.homes) response.homes = []
+                _this.props.dispatch( CustomerActions.updateCustomer(response) )
+                browserHistory.push(`/customers/${response.id}/edit`)
+            }
+        });
+    } else {
+        $.post(ev.target.action, formData, function(response){
+            _this.props.dispatch( CustomerActions.addCustomer(response) )
+            browserHistory.push(`/customers/${response.id}/edit`)
+        })
     }
-    /*
-    // TOGGLE METHOD BASED ON UPDATING / ADDING
-    */
-    if (this.props.customer.firstName) req.open("PUT", ev.target.action)
-    else req.open("POST", ev.target.action)
-    req.send(formData)
+
   }
 
   render() {

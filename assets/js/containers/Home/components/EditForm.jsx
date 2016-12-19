@@ -25,40 +25,32 @@ class EditHomeForm extends Component {
 
   handleSubmit(ev){
     ev.preventDefault()
-    var formData = new FormData(ev.target)
-    
-    /*
-    // NOTE: THIS ONE IS WEIRD. WE'RE BASICALLY CREATING A NON-STANDARD POST OBJECT
-    // SAILS HAS PROBLEMS WITH THE FORM AS IT'S SET UP, SO WE'RE GETTING ALL OF THE 
-    // DATA OUT OF THE FORM AND SUBMITTING IT WITH JQUERY. GOOD NEWS, IT WORKS!
-    // BAD NEWS - IT'S NOT SUPER CLEAN. FROWN.
-    */
+    var formData = $(ev.target).serializeObject()
 
-    /*
-    // GATHER ALL FORM DATA USING THE NAME ATTRIBUTE
-    */
-    var convertedFormData = {}
-    $('[name]').each(function(){
-        if (!/meta/i.test(this.tagName)) {
-            var name = $(this).attr('name')
-            if (!convertedFormData[name]) convertedFormData[name] = formData.getAll(name)
-        }
-    })
-    
     /*
     // TRANSFORM OBJECT INTO SOMETHING WE CAN POST
     */
-    var formDataToPost = {};
-    Object.keys(convertedFormData).forEach(function(key){
-        var data = convertedFormData[key]
+    var formDataToPost = {
+        performance: [],
+        design: [],
+        outdoor: []
+    }
+    Object.keys(formData).forEach(function(key){
+        var data = formData[key]
         var dataKey = key.split('.')[0]
         if (key.split('.').length > 1) {
             /* HANDLE OBJECTS --- */
             var name = key.split('.')[1]
-            for (var i = 0; i < data.length; i++) {
+            if (typeof data == 'string') {
                 if (!formDataToPost[ dataKey ]) formDataToPost[ dataKey ] = []
-                if (!formDataToPost[ dataKey ][i]) formDataToPost[ dataKey ][i] = {}
-                formDataToPost[ dataKey ][i][name] = data[i]
+                if (!formDataToPost[ dataKey ][0]) formDataToPost[ dataKey ][0] = {}
+                formDataToPost[ dataKey ][0][name] = data
+            } else {
+                for (var i = 0; i < data.length; i++) {
+                    if (!formDataToPost[ dataKey ]) formDataToPost[ dataKey ] = []
+                    if (!formDataToPost[ dataKey ][i]) formDataToPost[ dataKey ][i] = {}
+                    formDataToPost[ dataKey ][i][name] = data[i]
+                }
             }
         } else if (data.length > 1) {
             /* HANDLE ARRAYS --- */
@@ -68,9 +60,6 @@ class EditHomeForm extends Component {
             formDataToPost[ dataKey ] = data[0]
         }
     })
-    if (!formDataToPost['performance']) formDataToPost['performance'] = []
-    if (!formDataToPost['design']) formDataToPost['design'] = []
-    if (!formDataToPost['outdoor']) formDataToPost['outdoor'] = []
     var _this = this
     if (this.props.home.id) {
         $.ajax({
