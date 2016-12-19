@@ -231,6 +231,12 @@ body {
 .address-input-wrapper {
     a.get-address {
         line-height:2.5em;
+        @media(max-width:400px){
+            font-size: 1.2rem;
+            white-space: nowrap;
+            display: block;
+            padding-bottom: .5em;
+        }
     }
     svg {
         height:1em; width:1em;
