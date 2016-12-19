@@ -41,6 +41,7 @@ class Customer extends Component {
   }
 
   handleCustomerEvents(event) {
+      console.log( event.verb, event.data )
       if (event.verb == 'created') this.props.dispatch( CustomerActions.addCustomer(event.data) )
       else if (event.verb == 'destroyed') this.props.dispatch( CustomerActions.removeCustomer(event.previous) )
       else if (event.verb == 'updated') this.props.dispatch( CustomerActions.updateCustomer(event.data) )
@@ -51,6 +52,7 @@ class Customer extends Component {
   }
 
   handleHomeEvents(event) {
+      console.log( event.verb, event.data )
       if (event.verb == 'updated') {
           // updates are not captured under the Customer Event pipeline
           io.socket.get('/customers?sort=updatedAt desc', this.setCustomers)

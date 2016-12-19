@@ -17,6 +17,9 @@ class Address extends Component {
       this.setGeolocation = this.setGeolocation.bind(this)
       this.getGeolocation = this.getGeolocation.bind(this)
       this.getAddressByGeolocation = this.getAddressByGeolocation.bind(this)
+      this.initAutocomplete = this.initAutocomplete.bind(this)
+      this.fillInAddress = this.fillInAddress.bind(this)
+      this.updateInputsWithAddress = this.updateInputsWithAddress.bind(this)
   }
 
   componentDidMount(){
@@ -28,6 +31,12 @@ class Address extends Component {
           lat: position.coords.latitude,
           lng: position.coords.longitude
       })
+      this.initAutocomplete()
+      var circle = new google.maps.Circle({
+        center: { lat: position.coords.latitude, lng: position.coords.longitude },
+        radius: position.coords.accuracy
+      })
+      this.autocomplete.setBounds(circle.getBounds())
   }
 
   geolocationError(error){
@@ -63,15 +72,32 @@ class Address extends Component {
     geocoder.geocode({'location': latlng}, function(results, status){
         if (status !== 'OK') return false
         if (results[1]) {
-            var addressParts = results[0].address_components
-            document.getElementsByName('addressLine1')[0].value = `${_this.getGeocodeProperty(addressParts, 'street_number', 'long_name')} ${_this.getGeocodeProperty(addressParts, 'route', 'long_name')}`
-            document.getElementsByName('city')[0].value = _this.getGeocodeProperty(addressParts, 'locality', 'long_name')
-            document.getElementsByName('state')[0].value = _this.getGeocodeProperty(addressParts, 'administrative_area_level_1')
-            document.getElementsByName('zipcode')[0].value = _this.getGeocodeProperty(addressParts, 'postal_code')
+            _this.updateInputsWithAddress( results[0].address_components )
         } else {
             alert('Sorry, we couldn\'t figure out the address.')
         }
     })
+  }
+
+  updateInputsWithAddress(addressParts){
+    /*
+    // THIS IS SET UP FOR EASY READING, BUT IT LOOPS THROUGH THE DATA MORE THAN I'D LIKE FOR A PRODUCTION APP
+    */
+    document.getElementsByName('addressLine1')[0].value = `${this.getGeocodeProperty(addressParts, 'street_number', 'long_name')} ${this.getGeocodeProperty(addressParts, 'route', 'long_name')}`
+    document.getElementsByName('city')[0].value = this.getGeocodeProperty(addressParts, 'locality', 'long_name')
+    document.getElementsByName('state')[0].value = this.getGeocodeProperty(addressParts, 'administrative_area_level_1')
+    document.getElementsByName('zipcode')[0].value = this.getGeocodeProperty(addressParts, 'postal_code')
+  }
+
+  initAutocomplete(){
+      this.autocomplete = new google.maps.places.Autocomplete( (document.getElementsByName('addressLine1')[0] ), {types: ['geocode']});
+      this.autocomplete.addListener('place_changed', this.fillInAddress);
+  }
+
+  fillInAddress() {
+        // Get the place details from the autocomplete object.
+        this.place = this.autocomplete.getPlace()
+        this.updateInputsWithAddress( this.place.address_components )
   }
 
   render() {

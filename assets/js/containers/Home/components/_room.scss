@@ -38,6 +38,9 @@
         &.square-feet {
             width:48.5%;
             width:calc(50% - 1rem);
+            @media(max-width:400px) {
+                width:100%;
+            }
         }
     }
     .customer-notes {

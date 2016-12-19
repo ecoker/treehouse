@@ -13,7 +13,10 @@ function Customer(state = initialState, action) {
             }
         case CustomerActions.ADD_CUSTOMER:
             var currentCustomers = [].concat(state.customers)
-            currentCustomers.unshift( action.payload )
+            var customerAlreadyExists = currentCustomers.filter(function(customer){
+                return customer.id == action.payload.id
+            }).length > 0
+            if (!customerAlreadyExists) currentCustomers.unshift( action.payload )
             return {
                 ...state,
                 customers: currentCustomers

@@ -15,7 +15,7 @@ class Menu extends Component {
             menuData: [
                 {
                     to: '/',
-                    text: 'Testing Update'
+                    text: 'All Customers'
                 },
                 {
                     to: '/customers/add',

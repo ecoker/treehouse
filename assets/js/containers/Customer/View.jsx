@@ -51,8 +51,11 @@ class CustomerView extends Component {
   }
 
   getHomes(){
+    /* CUSTOMER IS NOT DEFINED, DO NOT RENDER HOMES --- */
     if (!this.state.customer) return []
-    else return this.state.customer.homes.map(function(home, i){
+    /* HOMES IS NOT DEFINED, DO NOT LOOP THROUGH HOMES --- */
+    if (!this.state.customer.homes) return []
+    return this.state.customer.homes.map(function(home, i){
         return <HomeCard key={`home-card-${i}`} { ...home } />
     })
   }
